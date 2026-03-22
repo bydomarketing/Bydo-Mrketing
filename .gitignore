@@ -1,6 +1,9 @@
 # Dependencies
 node_modules/
 
+# Documentation
+Plano/
+
 # Build outputs
 dist/
 build/
