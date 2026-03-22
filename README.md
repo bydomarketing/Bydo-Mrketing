@@ -13,7 +13,7 @@ Localizada em **Ribeirão Pires-SP**, atendemos empresas do ABC Paulista e clien
 ## Nossos Serviços
 
 - **Design Gráfico e Identidade Visual** — Logotipos, paletas de cores, tipografia e manual da marca
-- **Criação de Sites e Landing Pages** — Sites profissionais, otimizados para SEO e conversion
+- **Criação de Sites e Landing Pages** — Sites profissionais, otimizados para SEO e conversão
 - **Otimização do Google Meu Negócio** — Maior visibilidade local e mais clientes encontrados
 - **Gestão de Redes Sociais** — Planejamento, criação de conteúdo e engajamento estratégico
 
@@ -47,15 +47,55 @@ Este site foi desenvolvido utilizando:
 **Pré-requisitos:** Node.js
 
 ```bash
-# 1. Instale as dependências
+# 1. Clone o repositório
+git clone https://github.com/bydomarketing/Bydo-Mrketing.git
+cd Bydo-Mrketing
+
+# 2. Instale as dependências
 npm install
 
-# 2. Inicie o servidor de desenvolvimento
+# 3. Copie o arquivo de ambiente
+cp .env.example .env.local
+
+# 4. Inicie o servidor de desenvolvimento
 npm run dev
 
-# 3. Build para produção
+# 5. Build para produção
 npm run build
 ```
+
+---
+
+## Scripts Disponíveis
+
+| Comando | Descrição |
+|---------|-----------|
+| `npm run dev` | Servidor de desenvolvimento |
+| `npm run build` | Build de produção |
+| `npm run preview` | Preview do build |
+| `npm run lint` | Verificação de código |
+
+---
+
+## Documentação
+
+- [CONTRIBUTING.md](./CONTRIBUTING.md) — Guia de contribuição
+- [SECURITY.md](./SECURITY.md) — Política de segurança
+- [Plano/](./Plano/) — Planos e especificações do projeto
+
+---
+
+## Boas Práticas
+
+### Segurança
+- Variáveis de ambiente para dados sensíveis
+- Validação de inputs
+- Dependências atualizadas
+
+### Código
+- Convenções de nomenclatura seguidas
+- Componentes organizados e reutilizáveis
+- Documentação atualizada
 
 ---
 
