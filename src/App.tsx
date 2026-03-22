@@ -245,6 +245,7 @@ const SectionTitle = ({
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
   const location = useLocation();
   const isHomePage = location.pathname === "/";
 
@@ -259,36 +260,55 @@ const Navbar = () => {
     };
   }, [isMenuOpen]);
 
+  const servicePages = [
+    { name: "Design Gráfico e Identidade Visual", href: "/servicos/design-grafico.html" },
+    { name: "Criação de Sites e Landing Pages", href: "/servicos/criacao-sites.html" },
+    { name: "Otimização do Google Meu Negócio", href: "/servicos/google-meu-negocio.html" },
+    { name: "Gestão de Redes Sociais", href: "/servicos/redes-sociais.html" },
+  ];
+
   const navLinks = [
-    { name: "WORK", href: isHomePage ? "#home" : "/#home" },
-    { name: "SERVICES", href: isHomePage ? "#servicos" : "/#servicos" },
-    { name: "ABOUT", href: isHomePage ? "#sobre" : "/#sobre" },
-    { name: "NEWS", href: "/blog.html" },
-    { name: "CONTACT", href: isHomePage ? "#contato" : "/#contato" },
+    { name: "Home", href: isHomePage ? "#home" : "/#home" },
+    { name: "Sobre Nós", href: isHomePage ? "#sobre" : "/#sobre" },
+    { name: "Serviços", href: "#", hasSubmenu: true },
+    { name: "Portfólio", href: isHomePage ? "#portfolio" : "/#portfolio" },
+    { name: "FAQ", href: isHomePage ? "#faq" : "/#faq" },
+    { name: "Blog", href: "/blog.html" },
+    { name: "Contato", href: isHomePage ? "#contato" : "/#contato" },
   ];
 
   const socialLinks = [
-    { name: "TWITTER", href: "#" },
-    { name: "INSTAGRAM", href: "https://www.instagram.com/bydomarketingdigital/" },
-    { name: "LINKEDIN", href: "#" },
-    { name: "CLUTCH", href: "#" },
+    { name: "Instagram", href: "https://www.instagram.com/bydomarketingdigital/" },
+    { name: "Facebook", href: "https://www.facebook.com/profile.php?id=61577454752620" },
   ];
+
+  const toggleSubmenu = (name: string) => {
+    setActiveSection(activeSection === name ? null : name);
+  };
 
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full z-50">
-        <div className="container flex justify-between items-center py-6">
+      <nav className="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-sm">
+        <div className="container flex justify-between items-center py-4">
           <Link to="/" className="flex items-center gap-2">
-            <span className="text-2xl font-display font-extrabold text-white tracking-tighter">Bydo<span className="text-vibrant-pink">.</span></span>
+            <span className="text-2xl font-display font-extrabold text-royal-blue tracking-tighter">Bydo<span className="text-vibrant-pink">.</span></span>
           </Link>
 
-          <button 
-            className="text-vibrant-pink p-2"
-            onClick={() => setIsMenuOpen(true)}
-            aria-label="Abrir menu"
-          >
-            <Menu size={32} />
-          </button>
+          <div className="flex items-center gap-4">
+            <a 
+              href={WHATSAPP_URL}
+              className="bg-vibrant-pink text-white px-5 py-2.5 font-bold text-xs uppercase tracking-widest hover:bg-opacity-90 transition-all hidden md:inline-block"
+            >
+              Falar com a Bydo
+            </a>
+            <button 
+              className="text-royal-blue p-2"
+              onClick={() => setIsMenuOpen(true)}
+              aria-label="Abrir menu"
+            >
+              <Menu size={28} />
+            </button>
+          </div>
         </div>
       </nav>
 
@@ -299,9 +319,9 @@ const Navbar = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[100] bg-royal-blue flex flex-col"
+            className="fixed inset-0 z-[100] bg-royal-blue flex flex-col overflow-y-auto"
           >
-            <div className="container flex justify-between items-center py-6">
+            <div className="container flex justify-between items-center py-4 shrink-0">
               <Link to="/" className="flex items-center gap-2" onClick={() => setIsMenuOpen(false)}>
                 <span className="text-2xl font-display font-extrabold text-white tracking-tighter">Bydo<span className="text-vibrant-pink">.</span></span>
               </Link>
@@ -318,20 +338,63 @@ const Navbar = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="flex-1 flex flex-col justify-center container"
+              className="container py-8 flex-1"
             >
-              <nav className="flex flex-col gap-4 md:gap-6">
+              <nav className="flex flex-col">
                 {navLinks.map((link, i) => (
                   <motion.div
                     key={link.name}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.1 + i * 0.05 }}
+                    transition={{ delay: 0.1 + i * 0.03 }}
                   >
-                    {link.href.startsWith("#") ? (
+                    {link.hasSubmenu ? (
+                      <div>
+                        <button 
+                          className="text-white text-3xl md:text-5xl lg:text-6xl font-display font-black hover:text-vibrant-pink transition-colors flex items-center gap-4 py-3"
+                          onClick={() => toggleSubmenu(link.name)}
+                        >
+                          {link.name}
+                          <motion.span
+                            animate={{ rotate: activeSection === link.name ? 180 : 0 }}
+                            transition={{ duration: 0.2 }}
+                          >
+                            <ChevronDown size={28} />
+                          </motion.span>
+                        </button>
+                        
+                        <AnimatePresence>
+                          {activeSection === link.name && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: "auto", opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.3 }}
+                              className="overflow-hidden"
+                            >
+                              <div className="pl-6 py-4 flex flex-col gap-3">
+                                {servicePages.map((service) => (
+                                  <Link 
+                                    key={service.name}
+                                    to={service.href}
+                                    className="text-white/70 hover:text-vibrant-pink text-lg md:text-xl font-semibold transition-colors py-1"
+                                    onClick={() => {
+                                      setIsMenuOpen(false);
+                                      setActiveSection(null);
+                                    }}
+                                  >
+                                    {service.name}
+                                  </Link>
+                                ))}
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    ) : link.href.startsWith("#") ? (
                       <a 
                         href={link.href} 
-                        className="text-white text-4xl md:text-6xl lg:text-7xl font-display font-black hover:text-vibrant-pink transition-colors"
+                        className="text-white text-3xl md:text-5xl lg:text-6xl font-display font-black hover:text-vibrant-pink transition-colors block py-3"
                         onClick={() => setIsMenuOpen(false)}
                       >
                         {link.name}
@@ -339,7 +402,7 @@ const Navbar = () => {
                     ) : (
                       <Link 
                         to={link.href} 
-                        className="text-white text-4xl md:text-6xl lg:text-7xl font-display font-black hover:text-vibrant-pink transition-colors"
+                        className="text-white text-3xl md:text-5xl lg:text-6xl font-display font-black hover:text-vibrant-pink transition-colors block py-3"
                         onClick={() => setIsMenuOpen(false)}
                       >
                         {link.name}
@@ -353,13 +416,13 @@ const Navbar = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
-                className="mt-12 md:mt-16"
+                className="mt-12"
               >
                 <a 
                   href={WHATSAPP_URL}
-                  className="border-2 border-white text-white px-8 md:px-12 py-4 md:py-5 font-bold text-xs uppercase tracking-widest inline-flex items-center gap-3 hover:bg-white hover:text-royal-blue transition-all"
+                  className="border-2 border-white text-white px-8 py-4 font-bold text-xs uppercase tracking-widest inline-flex items-center gap-3 hover:bg-white hover:text-royal-blue transition-all"
                 >
-                  Start a Project <ArrowRight size={18} />
+                  Comece seu projeto <ArrowRight size={18} />
                 </a>
               </motion.div>
             </motion.div>
@@ -368,14 +431,14 @@ const Navbar = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
-              className="container py-8"
+              className="container py-6 border-t border-white/10 shrink-0"
             >
-              <div className="flex items-center gap-6 md:gap-10">
+              <div className="flex items-center gap-6">
                 {socialLinks.map((link) => (
                   <a
                     key={link.name}
                     href={link.href}
-                    target={link.href.startsWith("http") ? "_blank" : "_self"}
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="text-white/60 hover:text-vibrant-pink text-xs font-bold uppercase tracking-widest transition-colors"
                   >
@@ -394,7 +457,7 @@ const Navbar = () => {
 // --- Sections ---
 
 const Hero = () => (
-  <section id="home" className="relative min-h-screen flex items-center overflow-hidden bg-royal-blue">
+  <section id="home" className="relative min-h-screen flex items-center overflow-hidden bg-royal-blue pt-20">
     <div className="absolute inset-0 overflow-hidden">
       <div className="blob blob-1"></div>
       <div className="blob blob-2"></div>
