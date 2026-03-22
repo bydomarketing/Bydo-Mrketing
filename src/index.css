@@ -1,0 +1,104 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap');
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Poppins", sans-serif;
+  
+  --color-royal-blue: #003399;
+  --color-vibrant-pink: #FF007F;
+  --color-citrine-yellow: #F4D03F;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white text-slate-800 font-sans antialiased;
+    background-image: radial-gradient(rgba(0, 51, 153, 0.05) 1px, transparent 1px);
+    background-size: 30px 30px;
+    background-attachment: fixed;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-bold text-royal-blue tracking-tight;
+  }
+}
+
+.blueprint-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 51, 153, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 51, 153, 0.03) 1px, transparent 1px);
+  background-attachment: fixed;
+}
+
+/* ─── Global 80% width constraint ─── */
+.container {
+  width: 90%;          /* mobile: 5% breathing room on each side */
+  max-width: 80vw;     /* desktop: hard cap at 80% of viewport */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+@media (min-width: 768px) {
+  .container {
+    width: 80%;
+  }
+}
+
+/* ─── Animated Blobs Background ─── */
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.6;
+  animation: blob-float 20s ease-in-out infinite;
+}
+
+.blob-1 {
+  width: 600px;
+  height: 600px;
+  background: #002395;
+  top: -20%;
+  left: -10%;
+  animation-delay: 0s;
+}
+
+.blob-2 {
+  width: 500px;
+  height: 500px;
+  background: #FF007F;
+  top: 30%;
+  right: -15%;
+  animation-delay: -7s;
+}
+
+.blob-3 {
+  width: 400px;
+  height: 400px;
+  background: #FFFFFF;
+  bottom: -10%;
+  left: 30%;
+  animation-delay: -14s;
+}
+
+@keyframes blob-float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(50px, -50px) scale(1.1);
+  }
+  50% {
+    transform: translate(-30px, 30px) scale(0.9);
+  }
+  75% {
+    transform: translate(-50px, -20px) scale(1.05);
+  }
+}
+
