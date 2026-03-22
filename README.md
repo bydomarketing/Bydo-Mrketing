@@ -1,20 +1,79 @@
 <div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+  <img width="1200" height="475" alt="Bydo Marketing Digital" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
 </div>
 
-# Run and deploy your AI Studio app
+# Bydo Marketing Digital
 
-This contains everything you need to run your app locally.
+Transformamos empresas em **Ativos Digitais** profissionais através de estratégias de Marketing de Performance e Design de Autoridade.
 
-View your app in AI Studio: https://ai.studio/apps/526d6e95-22c7-4318-8919-92206e9b5a7c
+Localizada em **Ribeirão Pires-SP**, atendemos empresas do ABC Paulista e clientes online em todo o Brasil.
 
-## Run Locally
+---
 
-**Prerequisites:**  Node.js
+## Nossos Serviços
 
+- **Design Gráfico e Identidade Visual** — Logotipos, paletas de cores, tipografia e manual da marca
+- **Criação de Sites e Landing Pages** — Sites profissionais, otimizados para SEO e conversion
+- **Otimização do Google Meu Negócio** — Maior visibilidade local e mais clientes encontrados
+- **Gestão de Redes Sociais** — Planejamento, criação de conteúdo e engajamento estratégico
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+---
+
+## Nossa Abordagem
+
+Não se trata apenas de postar conteúdos ou criar artes. Trata-se de **organizar a presença digital** da sua empresa para que ela seja:
+
+- Mais profissional
+- Mais clara para o público
+- Mais fácil de encontrar
+- Mais forte diante da concorrência
+
+---
+
+## Tecnologias
+
+Este site foi desenvolvido utilizando:
+
+- **React** + **TypeScript**
+- **Vite** — Build tool
+- **Tailwind CSS** — Estilização
+- **Framer Motion** — Animações
+- **React Router** — Navegação
+
+---
+
+## Como Executar Localmente
+
+**Pré-requisitos:** Node.js
+
+```bash
+# 1. Instale as dependências
+npm install
+
+# 2. Inicie o servidor de desenvolvimento
+npm run dev
+
+# 3. Build para produção
+npm run build
+```
+
+---
+
+## Contato
+
+Quer transformar a presença digital da sua empresa?
+
+<a href="https://wa.me/5511939553258" target="_blank" rel="noopener noreferrer">
+  <img src="https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" alt="WhatsApp">
+</a>
+
+- **Email:** agenciabydo@gmail.com
+- **Instagram:** [@bydomarketingdigital](https://www.instagram.com/bydomarketingdigital/)
+- **Localização:** Ribeirão Pires-SP
+
+---
+
+<p align="center">
+  <strong>Bydo Marketing Digital & Design</strong><br>
+  Estratégia • Design • Performance
+</p>
