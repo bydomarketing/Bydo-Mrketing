@@ -2,20 +2,20 @@
   RewriteEngine On
   RewriteBase /
   
-  # Prevent directory listing
-  Options -Indexes
+  # Ensure index.php is used to avoid 403
+  DirectoryIndex index.php index.html
 
-  # Match any request that doesn't already start with /dist/
-  RewriteCond %{REQUEST_URI} !^/dist/
-  
-  # Check if the requested file exists inside the /dist folder
-  # (Must be checked relatively to the document root)
+  # 1. Map any asset request directly to the dist/ folder
+  # This makes '/assets/main.js' load from '/dist/assets/main.js' seamlessly
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{DOCUMENT_ROOT}/dist%{REQUEST_URI} -f
   RewriteRule ^(.*)$ dist/$1 [L]
 
-  # For React Router: if still not found, serve dist/index.html
+  # 2. For React Router (SPA) routes: keep URL clean and use index.php
+  # index.php handles including the dist/index.html
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule . /dist/index.html [L]
+  RewriteRule . /index.php [L]
 </IfModule>
+
