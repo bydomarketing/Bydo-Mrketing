@@ -1,0 +1,21 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  
+  # Prevent directory listing
+  Options -Indexes
+
+  # Match any request that doesn't already start with /dist/
+  RewriteCond %{REQUEST_URI} !^/dist/
+  
+  # Check if the requested file exists inside the /dist folder
+  # (Must be checked relatively to the document root)
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.*)$ dist/$1 [L]
+
+  # For React Router: if still not found, serve dist/index.html
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /dist/index.html [L]
+</IfModule>
