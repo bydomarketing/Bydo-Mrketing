@@ -5,6 +5,10 @@
   # Ensure index.php is used to avoid 403
   DirectoryIndex index.php index.html
 
+  # Force HTTPS (optional but highly recommended)
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
   # 1. Map any asset request directly to the dist/ folder
   # This makes '/assets/main.js' load from '/dist/assets/main.js' seamlessly
   RewriteCond %{REQUEST_FILENAME} !-f
@@ -18,4 +22,44 @@
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule . /index.php [L]
 </IfModule>
+
+# --- Security Headers ---
+<IfModule mod_headers.c>
+  # 1. Prevent MIME-type sniffing
+  Header set X-Content-Type-Options "nosniff"
+
+  # 2. XSS Protection
+  Header set X-XSS-Protection "1; mode=block"
+
+  # 3. HTTP Strict Transport Security (HSTS)
+  Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+  # 4. Same Origin policy for iframes
+  Header set X-Frame-Options "SAMEORIGIN"
+
+  # 5. Referrer Policy
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # 6. Permissions Policy (Geolocation, Camera, Mic disabled by default)
+  Header set Permissions-Policy "geolocation=(), camera=(), microphone=()"
+
+  # 7. Content Security Policy (Basic version - adjust as needed)
+  # Allows: self, fonts.googleapis, fonts.gstatic, images from any https, scripts from self and inline
+  Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https: data:; connect-src 'self';"
+</IfModule>
+
+# --- Block Access to Sensitive Files ---
+<FilesMatch "^\.(env|git|htaccess|gitignore|bash|ssh|config(ure)?|sql|yaml|sh|log)$|^package(-lock)?\.json$|^tsconfig\.json$|^vite\.config\.ts$|^SECURITY\.md$|^README\.md$">
+  Order allow,deny
+  Deny from all
+</FilesMatch>
+
+# Prevent directory listing
+Options -Indexes
+
+# Protect .htaccess and .htpasswd
+<Files ~ "^.*\.([Hh][Tt][AaPp])">
+  order deny,allow
+  deny from all
+</Files>
 
