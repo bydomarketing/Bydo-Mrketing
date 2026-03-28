@@ -468,7 +468,7 @@ const Hero = () => (
         </motion.div>
         
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-[1.1] mb-8 text-royal-blue">
-          é fazendo que acontece. e a gente faz para você.
+          É fazendo que acontece. e a gente faz para você.
         </h1>
         
         <motion.p 
